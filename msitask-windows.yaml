@@ -1,0 +1,6 @@
+version: 1.0-preview-1
+secrets:
+  - id: mysecret
+    akv: https://myacbvault.vault-int.azure-int.net/secrets/SampleSecret/dbbc099f1c5c4bae859ad3f458e5b9fc
+steps:
+  - cmd: mcr.microsoft.com/windows/nanoserver:1809 echo "mysecret value is {{.Secrets.mysecret}}"
