@@ -3,6 +3,8 @@ secrets:
   - id: mysecret
     akv: https://myacbvault.vault-int.azure-int.net/secrets/SampleSecret/dbbc099f1c5c4bae859ad3f458e5b9fc
 steps:
+  - build: -t {{.Run.Registry}}/examples:{{.Run.Commit}} .
+  - push: ["{{.Run.Registry}}/examples:{{.Run.Commit}}"]
   - cmd: microsoft/azure-cli az cloud register -n dogfood --endpoint-active-directory https://login.windows-ppe.net --endpoint-active-directory-graph-resource-id https://graph.ppe.windows.net/ --endpoint-active-directory-resource-id https://management.core.windows.net/ --endpoint-gallery https://current.gallery.azure-test.net/ --endpoint-management https://management.core.windows.net/ --endpoint-resource-manager https://api-dogfood.resources.windows-int.net/ --suffix-storage-endpoint core.test-cint.azure-test.net 
   - cmd: microsoft/azure-cli az cloud set -n dogfood 
   - cmd: microsoft/azure-cli az login --identity
