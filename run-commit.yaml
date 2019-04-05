@@ -1,4 +1,4 @@
 version: 1.0-preview-1
 steps:
-  - build: -t {{.Run.Registry}}/examples:{{.Run.Commit}} . -f curl.dockerfile
-  - push: ["{{.Run.Registry}}/examples:{{.Run.Commit}}"]
+  - build: -t {{.Run.Registry}}/examples:{{.Run.Commit}}{{.Run.Branch}} . -f curl.dockerfile
+  - push: ["{{.Run.Registry}}/examples:{{.Run.Commit}}{{.Run.Branch}}"]
