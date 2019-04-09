@@ -4,3 +4,5 @@ steps:
   - push: ["{{.Values.REGISTRY1}}/hello-world:{{.Run.ID}}"]
   - build: -t {{.Values.REGISTRY2}}/hello-world:{{.Run.ID}} . -f hello-world.dockerfile
   - push: ["{{.Values.REGISTRY2}}/hello-world:{{.Run.ID}}"]
+  - build: -t {{.Values.REGISTRY3}}/hello-world:{{.Run.ID}} . -f hello-world.dockerfile
+  - push: ["{{.Values.REGISTRY3}}/hello-world:{{.Run.ID}}"]
