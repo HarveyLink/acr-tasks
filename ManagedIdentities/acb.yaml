@@ -5,16 +5,37 @@ secrets:
   - id: name
     akv: https://myacbvault.vault-int.azure-int.net/secrets/demo-name
 steps:
+  - id: echo_secrets
   - cmd: bash echo Storage URL is {{.Secrets.sasurl}}
+
+  - id: step_1
   - cmd: bash echo Secret name is {{.Secrets.name}}
+
+  - id: get_artifacts
   - build: -t curl -f curl.dockerfile .
+  
+  - id: step_3
   - cmd: curl -f -o ./website.tar.gz -sSL {{.Secrets.sasurl}}
-  - retries: 5
+  
+  - id: step_4
   - cmd: bash tar xf ./website.tar.gz
+  - retries: 5
+  - timeout: 2
+
+  - id: build_push
   - build: -t {{.Run.Registry}}/my-website:{{.Run.ID}} aci-helloworld --build-arg MY_NAME={{.Secrets.name}} -f aci-helloworld/Dockerfile
-  - build: -t someimage:{{.Run.ID}} aci-helloworld --build-arg MY_NAME={{.Secrets.name}} -f aci-helloworld/Dockerfile
+
+  - id: step_6
   - push: ["{{.Run.Registry}}/my-website:{{.Run.ID}}"]
+
+  - id: step_7
   - cmd: microsoft/azure-cli az cloud register -n dogfood --endpoint-active-directory https://login.windows-ppe.net --endpoint-active-directory-graph-resource-id https://graph.ppe.windows.net/ --endpoint-active-directory-resource-id https://management.core.windows.net/ --endpoint-gallery https://current.gallery.azure-test.net/ --endpoint-management https://management.core.windows.net/ --endpoint-resource-manager https://api-dogfood.resources.windows-int.net/ --suffix-storage-endpoint core.test-cint.azure-test.net 
+  
+  - id: step_8
   - cmd: microsoft/azure-cli az cloud set -n dogfood 
+
+  - id: step_9
   - cmd: microsoft/azure-cli az login --identity
+  
+  - id: step_10
   - cmd: microsoft/azure-cli az acr repository show-tags -n samashahtest --repository my-website
