@@ -18,7 +18,6 @@ steps:
 
   # Build/Push the websiteto source registry
   - build: -t {{.Run.Registry}}/my-website:{{.Run.ID}} aci-helloworld --build-arg MY_NAME={{.Secrets.name}} -f aci-helloworld/Dockerfile
-  - build: -t someimage:{{.Run.ID}} aci-helloworld --build-arg MY_NAME={{.Secrets.name}} -f aci-helloworld/Dockerfile
   - push: ["{{.Run.Registry}}/my-website:{{.Run.ID}}"]
   
   # Login to Azure and list the tags to verify if we have the Image!
