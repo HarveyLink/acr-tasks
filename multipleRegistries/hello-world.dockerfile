@@ -1,1 +1,1 @@
-FROM hello-world
+FROM myfirstexample.azurecr-test.io/hello-world
