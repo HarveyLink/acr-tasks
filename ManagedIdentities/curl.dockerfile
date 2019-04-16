@@ -1,3 +1,3 @@
 FROM alpine:latest
 RUN apk add curl
-ENTRYPOINT ["/bin/sh"]
+ENTRYPOINT ["/usr/bin/curl"]

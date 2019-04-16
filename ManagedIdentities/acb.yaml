@@ -9,11 +9,11 @@ steps:
   - cmd: bash echo Storage URL is {{.Secrets.sasurl}}
   - cmd: bash echo Secret name is {{.Secrets.name}}
 
-  # Get artifacts
-  - build: -t curlbash -f curl.dockerfile .
-  - cmd: curlbash -c "curl -f -o website.tar.gz -sSL {{.Secrets.sasurl}} && sleep 3 && ls -al && tar xf website.tar.gz" 
-    retries: 10
-    retryDelay: 10
+   # Get artifacts
+  - build: -t curl -f curl.dockerfile .
+  - cmd: curl -f -o website.tar.gz -sSL {{.Secrets.sasurl}}
+  - cmd: bash tar xf website.tar.gz
+    startDelay: 5
 
   # Build/Push the websiteto source registry
   - build: -t {{.Run.Registry}}/my-website:{{.Run.ID}} aci-helloworld --build-arg MY_NAME={{.Secrets.name}} -f aci-helloworld/Dockerfile
