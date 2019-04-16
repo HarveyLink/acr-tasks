@@ -10,10 +10,8 @@ steps:
   - cmd: bash echo Secret name is {{.Secrets.name}}
 
   # Get artifacts
-  - build: -t curl -f curl.dockerfile .
-  - cmd: curl -f -o website.tar.gz -sSL {{.Secrets.sasurl}}
-  - cmd: bash ls -al
-  - cmd: bash tar xf website.tar.gz
+  - build: -t curlbash -f curl.dockerfile .
+  - cmd: curlbash -c "curl -f -o website.tar.gz -sSL {{.Secrets.sasurl}} && sleep 3 && ls -al && tar xf website.tar.gz" 
     retries: 10
     retryDelay: 10
 
