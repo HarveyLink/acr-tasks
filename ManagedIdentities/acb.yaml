@@ -1,9 +1,9 @@
 version: v1.0.0
 secrets:
   - id: sasurl
-    akv: https://myacbvault.vault-int.azure-int.net/secrets/website-sasurl
+    keyvault: https://myacbvault.vault-int.azure-int.net/secrets/website-sasurl
   - id: name
-    akv: https://myacbvault.vault-int.azure-int.net/secrets/demo-name
+    keyvault: https://myacbvault.vault-int.azure-int.net/secrets/demo-name
 steps:
   # echo secrets
   - cmd: bash echo Storage URL is {{.Secrets.sasurl}}
